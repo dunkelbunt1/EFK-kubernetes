@@ -24,7 +24,7 @@ kubectl apply -f namespace.yaml
 ```
 2. **Create the elasticsearch service** 
 ```
-kubectl apply -f elastic-service.yaml 
+kubectl apply -f elasticsearch-service.yaml 
 ```
 3. **Create the master config for elasticsearch** 
 ```
@@ -40,14 +40,14 @@ kubectl apply -f kibana-secret.yaml
 ```
 6. **Create Kibana and a headless service for it** 
 ```
-kubectl apply -f kibana-secret.yaml 
+kubectl apply -f kibana.yaml 
 kubectl apply -f kibana-service.yaml 
 ```
 7. **Configure Filebeat as a Deamonset**
 ```
-kubectl apply -f filebeat-svcaccount-rolebing.yaml
+kubectl apply -f filebeat-svaccount-rb.yaml
 kubectl apply -f filebeat-configmaps.yaml
-ectl apply -f filebeat-ds.yaml 
+kubectl apply -f filebeat-ds.yaml 
 ```
 8. **Acess kibana**
 Oberserve the name of your Kibana pod:
