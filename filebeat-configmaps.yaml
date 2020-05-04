@@ -62,3 +62,32 @@ metadata:
     app: filebeat
   name: filebeat-inputs
   namespace: efk-log
+---
+  apiVersion: v1
+  kind: ConfigMap
+  metadata:
+    name: ilm-policy
+    labels:
+      k8s-app: filebeat
+  data:
+    ilm-policy.json: |-
+      {
+        "policy": {
+          "phases": {
+            "hot": {
+              "actions": {
+                "rollover": {
+                  "max_age": "1d"
+                }
+              }
+            },
+            "delete": {
+              "min_age": "30d",
+              "actions": {
+                "delete": {}
+              }
+            }
+          }
+        }
+      }
+---
