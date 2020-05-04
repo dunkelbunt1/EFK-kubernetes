@@ -6,7 +6,7 @@ Elastic Search(3 master node cluster), Filebeat, Kibana
 # EFK-minikube
 Non production setup of the EFK stack on minikube.
 
-**Make sure you have a pv**
+Make sure you have a pv
 ```
 kubectl get pv
 ```
@@ -42,7 +42,7 @@ kubectl apply -f kibana-secret.yaml
 ```
 kubectl apply -f kibana-secret.yaml 
 kubectl apply -f kibana-service.yaml 
-```ß
+```
 7. **Configure Filebeat as a Deamonset**
 ```
 kubectl apply -f filebeat-svcaccount-rolebing.yaml
