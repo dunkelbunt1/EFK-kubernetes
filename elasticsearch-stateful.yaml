@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:7.4.0
+        image: dunkelbunts1/elasticsearch:7.6.2
         resources:
             limits:
               cpu: 1000m
@@ -64,6 +64,22 @@ spec:
         command: ["sh", "-c", "ulimit -n 65536"]
         securityContext:
           privileged: true
+      - name: add-access-key
+        image: busybox
+        # env:
+        #   - name: AWS_ACCESS_KEY_ID
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: aws-s3-keys
+        #         key: access-key
+        #   - name: AWS_SECRET_ACCESS_KEY
+        #     valueFrom:
+        #       secretKeyRef:
+        #         name: aws-s3-keys
+        #         key: secret-key
+        # command: ["sh", "-c", "echo $test | bin/elasticsearch-keystore add --stdin --force s3.client.default.access_key" ]
+          # echo $test | bin/elasticsearch-keystore add --stdin --force s3.client.default.access_key
+          # echo $test | bin/elasticsearch-keystore add --stdin --force s3.client.default.secret_key
       volumes:
       - name: elasticsearch-config
         configMap:
