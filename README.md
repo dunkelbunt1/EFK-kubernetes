@@ -34,22 +34,33 @@ kubectl apply -f elasticsearch-config.yaml
 ```
 kubectl create -f elasticsearch-stateful.yaml
 ```
-5. **CCreate credentials which will be used for Filebeat and ES** 
+5. **Create a secret containing the keystore** 
+```
+kubectl exec -it es-cluster-0 sh
+#Inside the container add your secret and access key to the ES keyring 
+echo ACCESS_KEY| bin/elasticsearch-keystore add --stdin --force s3.client.default.access_key 
+echo SECRET_KEY | bin/elasticsearch-keystore add --stdin --force s3.client.default.secret_key
+#Copy the binary to your computer
+kubectl cp NAMESPACE/POD:/usr/share/elasticsearch/config/elasticsearch.keystore .
+#Create a secret containing the binary
+kubectl create secret generic eskeystore --from-file=elasticsearch.keystore 
+```
+6. **CCreate credentials which will be used for Filebeat and ES** 
 ```
 kubectl apply -f kibana-secret.yaml
 ```
-6. **Create Kibana and a headless service for it** 
+7. **Create Kibana and a headless service for it** 
 ```
 kubectl apply -f kibana.yaml 
 kubectl apply -f kibana-service.yaml 
 ```
-7. **Configure Filebeat as a Deamonset**
+8. **Configure Filebeat as a Deamonset**
 ```
 kubectl apply -f filebeat-svaccount-rb.yaml
 kubectl apply -f filebeat-configmaps.yaml
 kubectl apply -f filebeat-ds.yaml 
 ```
-8. **Acess kibana**
+9. **Acess kibana**
 Oberserve the name of your Kibana pod:
 
 ```

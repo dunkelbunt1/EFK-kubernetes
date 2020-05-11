@@ -1,2 +1,4 @@
 aws-s3-keys.yaml
 test
+eskeystore.yaml
+elasticsearch.keystore
