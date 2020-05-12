@@ -34,9 +34,9 @@ data:
 
     output.elasticsearch:
       #hosts: ["https://elastic.domain.com"]
-      hosts: ["http://elasticsearch:9200"]
-      #username: elastic
-      #password: changeme
+      hosts: ["https://elasticsearch:9200"]
+      username: "test"
+      password: "test"
       #index: "<CLUSTER_NAME>-%{[beat.version]}-%{+yyyy.MM}"
       index: "filebeat-%{[beat.version]}-%{+yyyy.MM}"   
 kind: ConfigMap
@@ -63,31 +63,53 @@ metadata:
   name: filebeat-inputs
   namespace: efk-log
 ---
-  apiVersion: v1
-  kind: ConfigMap
-  metadata:
-    name: ilm-policy
-    labels:
-      k8s-app: filebeat
-  data:
-    ilm-policy.json: |-
-      {
-        "policy": {
-          "phases": {
-            "hot": {
-              "actions": {
-                "rollover": {
-                  "max_age": "1d"
-                }
-              }
-            },
-            "delete": {
-              "min_age": "30d",
-              "actions": {
-                "delete": {}
-              }
-            }
-          }
-        }
-      }
----
+#   apiVersion: v1
+#   kind: ConfigMap
+#   metadata:
+#     name: ilm-policy
+#     labels: 
+#       app: filebeat
+#   data:
+#     ilm-policy.json: |-
+#       {
+#         "policy": {
+#           "phases": {
+#             "hot": {
+#               "actions": {
+#                 "rollover": {
+#                   "max_size": "5GB" ,
+#                   "max_age": "1d"
+#                 },
+#                 "set_priority": {
+#                   "priority": "100"
+#                 }
+#               }
+#             },
+#             "warm": {
+#               "min_age": "7d",
+#               "action": {
+#                 "set_priority": {
+#                   "priority": 50
+#                 },
+#                 "readonly": {}
+#               }
+#             },
+#             "cold": {
+#               "min_age": "30d",
+#               "action": {
+#                 "set_priority": {
+#                   "priority": 50
+#                 },
+#                 "freeze": {}
+#               }
+#             },
+#             "delete": {
+#               "min_age": "60d",
+#               "actions": {
+#                 "delete": {}
+#               }
+#             }
+#           }
+#         }
+#       }
+# ---

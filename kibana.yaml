@@ -29,9 +29,9 @@ spec:
             cpu: 100m
         env:
         - name: ELASTICSEARCH_URL
-          value: http://elasticsearch:9200
-        #envFrom:
-        #- secretRef:
-        #    name: kibana-creds
+          value: https://elasticsearch:9200
+        
+        - secretRef:
+            name: kibana-creds
         ports:
         - containerPort: 5601

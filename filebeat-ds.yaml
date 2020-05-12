@@ -23,17 +23,17 @@ spec:
         - name: ELASTICSEARCH_HOST
           value: elasticsearch
         - name: ELASTICSEARCH_PORT
-          value: "443"
-       # - name: ELASTICSEARCH_USERNAME
-       #   valueFrom:
-       #     secretKeyRef:
-       #       key: username
-       #       name: elasticsearch
-       # - name: ELASTICSEARCH_PASSWORD
-       #   valueFrom:
-       #     secretKeyRef:
-       #      key: password
-       #       name: elasticsearch
+          value: "9200"
+        - name: ELASTICSEARCH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              key: username
+              name: elasticsearch
+        - name: ELASTICSEARCH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: password
+              name: elasticsearch
         image: docker.elastic.co/beats/filebeat:7.6.2
         imagePullPolicy: IfNotPresent
         name: filebeat

@@ -2,3 +2,5 @@ aws-s3-keys.yaml
 test
 eskeystore.yaml
 elasticsearch.keystore
+elastic-certificate.pem
+elastic-certificates.p12

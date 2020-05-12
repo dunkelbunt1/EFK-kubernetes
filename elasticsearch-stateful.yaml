@@ -21,7 +21,7 @@ spec:
             limits:
               cpu: 1000m
             requests:
-              cpu: 100m
+              cpu: 100m 
         securityContext:
           privileged: true
           runAsUser: 1000
@@ -46,6 +46,8 @@ spec:
           mountPath: "/usr/share/elasticsearch/config/elasticsearch.keystore"
           subPath: elasticsearch.keystore
           readOnly: true
+        - name: elastic-certificates
+          mountPath: /usr/share/elasticsearch/config/certs
         env:
           - name: ES_JAVA_OPTS
             value: "-Xms512m -Xmx512m"
@@ -78,6 +80,10 @@ spec:
       - name: eskeystore
         secret:
           secretName: eskeystore
+      - name: elastic-certificates
+        secret:
+          secretName: elastic-certificates
+
   volumeClaimTemplates:
   - metadata:
       name: data
